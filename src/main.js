@@ -1,9 +1,9 @@
 import Vue from "vue"
 import App from "./App.vue"
 import VueRouter from "vue-router"
-import Recipes from "./components/Recipes"
-import AddRecipe from "./components/AddRecipe"
-import EditRecipe from "./components/EditRecipe"
+// import Recipes from "./components/Recipes"
+// import AddRecipe from "./components/AddRecipe"
+// import EditRecipe from "./components/EditRecipe"
 import BootstrapVue from "bootstrap-vue/dist/bootstrap-vue.esm"
 // Import the styles directly. (Or you could add them via script tags.)
 import "bootstrap/dist/css/bootstrap.css"
@@ -13,9 +13,26 @@ Vue.use(VueRouter, BootstrapVue)
 export const router = new VueRouter({
    mode: "history",
    routes: [
-      { path: "/", component: Recipes },
-      { path: "/add", component: AddRecipe },
-      { path: "/edit/:slug", component: EditRecipe },
+      {
+         path: "/",
+
+         component: () =>
+            import(/* webpackPrefetch: "Recipes" */ "./components/Recipes"),
+      },
+      {
+         path: "/add",
+         component: () =>
+            import(
+               /* webpackPrefetch: "Add Recipes" */ "./components/AddRecipe"
+            ),
+      },
+      {
+         path: "/edit/:slug",
+         component: () =>
+            import(
+               /* webpackPrefetch: "Edit Recipes" */ "./components/EditRecipe"
+            ),
+      },
    ],
 })
 new Vue({
